@@ -124,15 +124,18 @@
     },
     {
       "lean": "lemma mul_pow (a b n : mynat) : (a * b) ^ n = a ^ n * b ^ n :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction n with m hd,\r\nrw pow_zero,\r\nrw pow_zero,\r\nrw pow_zero,\r\nrw one_mul,\r\nrefl,\r\nrw pow_succ,\r\nrw pow_succ,\r\nrw pow_succ,\r\nrw hd,\r\nsimp,\r\n"
     },
     {
       "lean": "lemma pow_pow (a m n : mynat) : (a ^ m) ^ n = a ^ (m * n) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction m with b hd,\r\nrw pow_zero,\r\nrw zero_mul,\r\nrw pow_zero,\r\nrw one_pow,\r\nrefl,\r\nrw pow_succ,\r\nrw succ_mul,\r\nsimp,\r\nrw pow_add,\r\nrw mul_pow,\r\nrw hd,\r\nrw mul_comm b n,\r\nrefl,\r\n\r\n"
     },
     {
       "lean": "lemma add_squared (a b : mynat) :\n  (a + b) ^ (2 : mynat) = a ^ (2 : mynat) + b ^ (2 : mynat) + 2 * a * b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "rw two_eq_succ_one,\r\nrw one_eq_succ_zero,\r\nrepeat {rw pow_succ},\r\nrw pow_zero,\r\nrw pow_zero,\r\nrw pow_zero,\r\nrw one_mul,\r\nrw one_mul,\r\nrw one_mul,\r\nrw add_mul,\r\nrw mul_add,\r\nrw mul_add,\r\nrw succ_mul,\r\nrw succ_mul,\r\nrw zero_mul,\r\nrw zero_add,\r\nrw add_mul,\r\nsimp,\r\n"
     },
     {
       "lean": "example (P Q : Type) (p : P) (h : P → Q) : Q :=\n",
@@ -247,7 +250,7 @@
     {
       "lean": "lemma iff_trans (P Q R : Prop) : (P ↔ Q) → (Q ↔ R) → (P ↔ R) :=\n",
       "isSolved": true,
-      "editorText": "intros hpq hqr, \r\nsplit,\r\nintro p,\r\napply hqr.1,\r\ncases hpq with pq qp,\r\nhave q := pq(p),\r\nexact q,\r\nintro r,\r\napply hpq.2,\r\ncases hqr with qr rq,\r\nhave q := rq(r),\r\nexact q,\r\n"
+      "editorText": "intro h,\r\ncases h with hpq hqp,\r\n  intro qr,\r\n  split,\r\n  intro p,\r\n  cases qr with q r,\r\n  apply q,\r\n  apply r,\r\n  have c := hpq(p),\r\n  have hr := q(c),\r\n  exact hr,\r\nintro r,\r\n  cases qr with qr rq,\r\n  have q := rq(r),\r\n  have p := hqp(q),\r\n  exact p,"
     },
     {
       "lean": "example (P Q : Prop) : Q → (P ∨ Q) :=\n",
